@@ -1,5 +1,7 @@
 package com.coded.bankaccountslist.composables
 
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,12 +17,15 @@ import androidx.compose.ui.unit.dp
 import com.coded.bankaccountslist.data.Account
 
 @Composable
-fun AccountCard(account: Account, modifier: Modifier = Modifier) {
+fun AccountCard(account: Account,
+                modifier: Modifier = Modifier,
+                onClick: (String ) -> Unit = {}) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(10.dp)
             .height(100.dp)
+            .clickable { onClick(account.name) }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

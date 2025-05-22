@@ -30,7 +30,7 @@ fun AccountsNavHost(
             AccountsList(
                 accountViewModel = accountViewModel,
                 onCardClicked = { account ->
-                    accountViewModel.storeSelectedAccount(account)
+                    accountViewModel.selectAccount(account)
                     navController.navigate(NavRoutesEnum.NAV_ROUTE_ACCOUNT_DETAILS.value)
                 }
             )

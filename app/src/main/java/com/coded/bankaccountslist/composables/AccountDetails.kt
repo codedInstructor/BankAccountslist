@@ -40,7 +40,7 @@ fun AccountDetails(
                     Text(text = stringResource(R.string.deposit))
                 }
                 Spacer(modifier = Modifier.width(4.dp))
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = { accountViewModel.withdraw() }) {
                     Text(text = stringResource(R.string.withdraw))
                 }
             }

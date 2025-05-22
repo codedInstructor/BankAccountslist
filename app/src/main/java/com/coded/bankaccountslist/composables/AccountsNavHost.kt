@@ -18,7 +18,7 @@ enum class NavRoutesEnum(val value: String) {
 fun AccountsNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "accountsList",
+    startDestination: String = NavRoutesEnum.NAV_ROUTE_ACCOUNTS_LIST.value,
     accountViewModel: AccountViewModel = viewModel()
 ) {
     NavHost(

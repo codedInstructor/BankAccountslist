@@ -1,16 +1,13 @@
 package com.coded.bankaccountslist.composables
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.coded.bankaccountslist.repository.AccountsRepository
+import com.coded.bankaccountslist.viewmodel.AccountViewModel
 
 enum class NavRoutesEnum(val value: String) {
     NAV_ROUTE_ACCOUNTS_LIST("accountsList"),
@@ -21,7 +18,8 @@ enum class NavRoutesEnum(val value: String) {
 fun AccountsNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "accountsList"
+    startDestination: String = "accountsList",
+    accountViewModel: AccountViewModel = viewModel()
 ) {
     NavHost(
         modifier = modifier,
@@ -29,21 +27,19 @@ fun AccountsNavHost(
         startDestination = startDestination
     ) {
         composable(NavRoutesEnum.NAV_ROUTE_ACCOUNTS_LIST.value) {
-            var accountsListState by remember { mutableStateOf(AccountsRepository.dummyAccounts) }
             AccountsList(
-                accountsListState,
-                onCardClicked = { name -> navController.navigate("${NavRoutesEnum.NAV_ROUTE_ACCOUNT_DETAILS.value}/${name}") }
+                accountViewModel = accountViewModel,
+                onCardClicked = { account ->
+                    accountViewModel.storeSelectedAccount(account)
+                    navController.navigate(NavRoutesEnum.NAV_ROUTE_ACCOUNT_DETAILS.value)
+                }
             )
         }
 
-        composable("${NavRoutesEnum.NAV_ROUTE_ACCOUNT_DETAILS.value}/{accountName}") {
-            val accountName = it.arguments?.getString("accountName")
-            var account = AccountsRepository.dummyAccounts.find { it.name == accountName }
-            if (account != null) {
-                AccountDetails(
-                    account = account
-                )
-            }
+        composable(NavRoutesEnum.NAV_ROUTE_ACCOUNT_DETAILS.value) {
+            AccountDetails(
+                accountViewModel = accountViewModel
+            )
         }
     }
 }

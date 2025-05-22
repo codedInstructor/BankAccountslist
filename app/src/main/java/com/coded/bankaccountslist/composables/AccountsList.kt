@@ -6,20 +6,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.coded.bankaccountslist.data.Account
+import com.coded.bankaccountslist.viewmodel.AccountViewModel
 
 
 @Composable
 fun AccountsList(
-    accounts: List<Account>,
     modifier: Modifier = Modifier,
-    onCardClicked: (String) -> Unit,
-
+    onCardClicked: (Account) -> Unit = {},
+    accountViewModel: AccountViewModel = viewModel()
 ) {
     LazyColumn(
         modifier = modifier,
     ) {
-        items(accounts) { account ->
+        items(accountViewModel.accountsListState) { account ->
             AccountCard(account, onClick = onCardClicked)
         }
     }

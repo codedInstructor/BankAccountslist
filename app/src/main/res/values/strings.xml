@@ -2,4 +2,6 @@
     <string name="app_name">Bank Accounts list</string>
     <string name="deposit">Deposit</string>
     <string name="withdraw">Withdraw</string>
+    <string name="title_activity_accounts_list">AccountsListActivity</string>
+    <string name="no_selected_account_found">No selected Account found</string>
 </resources>

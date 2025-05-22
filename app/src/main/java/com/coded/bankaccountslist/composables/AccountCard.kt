@@ -19,13 +19,13 @@ import com.coded.bankaccountslist.data.Account
 @Composable
 fun AccountCard(account: Account,
                 modifier: Modifier = Modifier,
-                onClick: (String ) -> Unit = {}) {
+                onClick: (Account) -> Unit = {}) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(10.dp)
             .height(100.dp)
-            .clickable { onClick(account.name) }
+            .clickable { onClick(account) }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
